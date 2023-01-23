@@ -1,0 +1,55 @@
+def some_method(object)
+  if other_method == true || another_one == false
+    case object.value
+    when :some_value
+      object.attribute = 10
+    when :another_value
+      object.attribute = 20
+    end
+  else
+    do_something_else
+  end
+end
+
+
+How to reduce the cyclomatic complexity of this block of code?
+
+def some_method(object)
+  if condition1 || condition2
+    set_attribute(object)
+  else
+    do_something_else
+  end
+end
+
+def condition1
+  other_method == true
+end
+
+def condition2
+  another_one == false
+end
+
+def set_attribute(object)
+  case object.value
+  when :some_value
+    object.attribute = 10
+  when :another_value
+    object.attribute = 20
+  end
+end
+
+
+
+
+def some_method(object)
+  if other_method == true
+    set_attribute(object)
+  elsif another_one == false
+    set_attribute(object)
+  else
+    do_something_else
+  end
+end
+
+
