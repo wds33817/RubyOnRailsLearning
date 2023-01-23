@@ -52,4 +52,11 @@ def some_method(object)
   end
 end
 
+def some_method(object)
+  if other_method == true || another_one == false
+    set_attribute(object)
+  else
+    do_something_else
+  end
+end
 
