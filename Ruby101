@@ -73,7 +73,7 @@ It is not possible to determine if the block of code using the method "some_meth
 
 
 
-Mick Xie
+
 The code was written in Ruby,  some_method x { |val| puts value }  use static analysis check this block of code fail
 A static analysis tool would likely detect an error in the block of code you provided, as the variable "value" is not defined within the scope of the block. It should be "val" instead of "value", so the code should be written as some_method x { |val| puts val }.
 This will prevent the code from raising an error 'undefined local variable or method value for main:Object (NameError)'
@@ -82,7 +82,7 @@ It's always a good practice to run your code through a static analysis tool or a
 
 
 
-Mick Xie
+
 How would you reduce the cyclomatic complexity of this block of code? The code was written in Ruby.
 
 def some_method(object)
@@ -101,7 +101,7 @@ One way to reduce the cyclomatic complexity of this block of code is to extract 
 
 Here is an example of how you could refactor the code:
 
-Copy code
+
 def some_method(object)
   if condition1 || condition2
     set_attribute(object)
@@ -128,7 +128,7 @@ def set_attribute(object)
 end
 It's also possible to use the else statement to avoid the second conditional, like this:
 
-Copy code
+
 def some_method(object)
   if other_method == true
     set_attribute(object)
@@ -142,7 +142,7 @@ This way, the code will keep the same functionality, but it will be more readabl
 
 It's also possible to use the if and elsif statement to check both conditions in one line and make the code more concise, like this:
 
-Copy code
+
 def some_method(object)
   if other_method == true || another_one == false
     set_attribute(object)
@@ -155,7 +155,7 @@ It's worth noting that this is a basic example and the best way to reduce the cy
 
 
 
-Mick Xie
+
 The code was written in ruby, spot the bug please
 
 class Decorator
@@ -173,13 +173,13 @@ The bug in this code is in the initialize method. The instance variable @delegat
 
 To fix the bug, you should use the @ symbol to set the instance variable, like this:
 
-Copy code
+
 def initialize(object)
     @delegatee = object
 end
 or use the attr_accessor that you already defined.
 
-Copy code
+
 def initialize(object)
     self.delegatee = object
 end
@@ -188,7 +188,7 @@ It's also worth noting that this code is an example of the "Delegator" pattern, 
 
 
 
-Mick Xie
+
 This will raise `SystemStackError` because of bug in `method_missing`?
 No, the code you provided will not raise a SystemStackError because of a bug in the method_missing method.
 The method_missing method is used to handle method calls that are not defined on the Decorator class, by forwarding them to the delegatee object. This can be useful for creating decorator classes, which add additional functionality to an existing object.
@@ -199,12 +199,12 @@ SystemStackError can be caused by any recursion without base case or stack overf
 
 
 
-Mick Xie
+
 Are there missing required parameters in `method_missing` signature?
 Yes, there is a missing required parameter in the method_missing signature.
 The method_missing method in Ruby is defined as follows:
 
-Copy code
+
 def method_missing(method_name, *args, &block)
   # code here
 end
@@ -217,13 +217,13 @@ In the provided code, the method_missing method is missing the *args and &block 
 
 It is missing *args and &block, so it should be like this:
 
-Copy code
+
 def method_missing(name, *args, &block)
     @delegatee.send(name, *args, &block)
 end
 or
 
-Copy code
+
 def method_missing(name, *args, &block)
     @delegatee.public_send(name, *args, &block)
 end
@@ -232,19 +232,19 @@ This will allow it to handle methods that take any number of arguments, and the 
 
 
 
-Mick Xie
+
 `@delegatee` is always going to be `nil`?
 It depends on the context of how the class is being used.
 In the provided code snippet, the instance variable @delegatee is never set and will be nil when the class is instantiated if you don't set it explicitly.
 initialize method has a mistake, it's not setting the instance variable @delegatee, instead it's creating a local variable delegatee and assigning it to object. This local variable will disappear after the initialization method is done and the instance variable @delegatee will be nil.
 
-Copy code
+
 def initialize(object)
     @delegatee = object
 end
 or
 
-Copy code
+
 def initialize(object)
     self.delegatee = object
 end
